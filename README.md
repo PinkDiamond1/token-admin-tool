@@ -1,4 +1,4 @@
-CAT Admin Tool
+Token Admin Tool
 =======
 
 Install
@@ -6,8 +6,8 @@ Install
 
 **Ubuntu/MacOSs**
 ```
-git clone https://github.com/Chia-Network/CAT-admin-tool.git
-cd CAT-admin-tool
+git clone https://github.com/bpx-network/token-admin-tool.git
+cd token-admin-tool
 python3 -m venv venv
 . ./venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
@@ -17,8 +17,8 @@ pip install .
 
 **Windows Powershell**
 ```
-git clone https://github.com/Chia-Network/CAT-admin-tool.git
-cd CAT-admin-tool
+git clone https://github.com/bpx-network/token-admin-tool.git
+cd token-admin-tool
 py -m venv venv
 ./venv/Scripts/activate
 python -m pip install --upgrade pip setuptools wheel
