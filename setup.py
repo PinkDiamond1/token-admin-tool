@@ -10,7 +10,9 @@ dependencies = [
 ]
 
 dev_dependencies = [
-    "black",
+    "black==21.12b0",
+    "pytest",
+    "pytest-env",
 ]
 
 setup(
@@ -19,7 +21,11 @@ setup(
     author="BPX Network",
     packages=find_packages(exclude=("tests",)),
     entry_points={
-        "console_scripts": ["cats = cats.cats:main"],
+        "console_scripts": [
+            "cats = cats.cats:main",
+            "secure_the_bag = cats.secure_the_bag:main",
+            "unwind_the_bag = cats.unwind_the_bag:main"
+        ],
     },
     author_email="hello@bpxcoin.cc",
     setup_requires=["setuptools_scm"],

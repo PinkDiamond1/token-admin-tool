@@ -25,7 +25,7 @@ from chia.wallet.cat_wallet.cat_utils import (
 )
 from chia.util.bech32m import decode_puzzle_hash
 
-# Loading the client requires the standard chia root directory configuration that all of the chia commands rely on
+# Loading the client requires the standard bpx root directory configuration that all of the chia commands rely on
 async def get_client() -> Optional[WalletRpcClient]:
     try:
         config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
@@ -110,7 +110,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
     "-l",
     "--tail",
     required=True,
-    help="The TAIL program to launch this CAT with",
+    help="The TAIL program to launch this token with",
 )
 @click.option(
     "-c",
@@ -130,14 +130,14 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
     "-t",
     "--send-to",
     required=True,
-    help="The address these CATs will appear at once they are issued",
+    help="The address these tokens will appear at once they are issued",
 )
 @click.option(
     "-a",
     "--amount",
     required=True,
     type=int,
-    help="The amount to issue in mojos (regular XCH will be used to fund this)",
+    help="The amount to issue in mojos (regular BPX will be used to fund this)",
 )
 @click.option(
     "-m",
@@ -235,7 +235,7 @@ def cli(
         (1, [[51, 0, -113, curried_tail, solution], [51, address, amount, [address]]])
     )
 
-    # Wrap the intermediate puzzle in a CAT wrapper
+    # Wrap the intermediate puzzle in a token wrapper
     cat_puzzle = construct_cat_puzzle(CAT_MOD, curried_tail.get_tree_hash(), p2_puzzle)
     cat_ph = cat_puzzle.get_tree_hash()
 
@@ -256,10 +256,10 @@ def cli(
             )
         )[0]
         print(json.dumps(primary_coin.to_json_dict(), sort_keys=True, indent=4))
-        print(f"Name: {primary_coin.name()}")
+        print(f"Name: {primary_coin.name().hex()}")
         return
 
-    # Create the CAT spend
+    # Create the token spend
     spendable_eve = SpendableCAT(
         eve_coin,
         curried_tail.get_tree_hash(),
@@ -300,8 +300,8 @@ def cli(
             return
         print(f"Successfully pushed the transaction to the network")
 
-    print(f"Asset ID: {curried_tail.get_tree_hash()}")
-    
+    print(f"Asset ID: {curried_tail.get_tree_hash().hex()}")
+    print(f"Eve Coin ID: {eve_coin.name()}")
     if not confirmation:
         print(f"Spend Bundle: {final_bundle_dump}")
 
